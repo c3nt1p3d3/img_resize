@@ -1,5 +1,5 @@
 from tkinter import *
-from tkinter.filedialog import askopenfilename
+from tkinter.filedialog import askopenfilenames
 from tkinter.messagebox import showerror
 import sys
 import string
@@ -30,16 +30,17 @@ class Application(Frame):
 
 		#the button to make it happen!
 		self.button = Button(self, text = "Start", command = self.code)
-		self.button.grid(row=3)
+		self.button.grid(row=3, column=1)
 
 		#close button
-		# self.button = Button(self, text = "Close", command = self.close)
+		self.button = Button(self, text = "Close", command = self.close)
+		self.button.grid(row=3, column=3)
 
 
 
 	def browse(self):
 		global fname
-		fname = askopenfilename(filetypes=(("All files", "*.*"), ("Image files", "*.jpg;*.jpeg;*.png") ))
+		fname = askopenfilenames(filetypes=(("All files", "*.*"), ("Image files", "*.jpg;*.jpeg;*.png") ))
 		if fname:
 			try:
 				print("""here it comes: self.files["template"].set(%s)""" % fname)
@@ -53,33 +54,43 @@ class Application(Frame):
 		#start the actual image resizing
 		from PIL import Image
 
-		image_file = fname
-		# image_file = '/home/belf/Documents/IT/Programming/Python/somepic.jpg'
+		fname_list = fname.split()
+
+		i = 0
+		j = len(fname_list)
+
+		while i<=j:
+
+			image_file = fname_list[i]
+			# image_file = '/home/belf/Documents/IT/Programming/Python/somepic.jpg'
+
+			i+=1
 		
-		img = Image.open(image_file)
+			img = Image.open(image_file)
 
-		# get the image's width and height in pixels
-		width, height = img.size
+			# get the image's width and height in pixels
+			width, height = img.size
 
-		# resize the image using the largest side as dimension
-		factor = 0.3
+			# resize the image using the largest side as dimension
+			factor = 0.3
 
-		new_width = int(width*factor)
+			new_width = int(width*factor)
 
-		new_height = int(height*factor)
+			new_height = int(height*factor)
 
-		resized_image = img.resize((new_width, new_height), Image.ANTIALIAS)
+			resized_image = img.resize((new_width, new_height), Image.ANTIALIAS)
 
-		# save the resized image to a file
-		# and view it with your favorite image viewer
-		# image_file = re.sub('*.jpg', '', image_file)
-		image_file = image_file.replace(".jpg","")
-		resized_image_file = image_file + "_thumb.jpg"
-		resized_image.save(resized_image_file)
+			# save the resized image to a file
+			# and view it with your favorite image viewer
+			# image_file = re.sub('*.jpg', '', image_file)
+			image_file = image_file.replace(".jpg","")
+			resized_image_file = image_file + "_thumb.jpg"
+			resized_image.save(resized_image_file)
+
 
 root = Tk()
 root.title("Image resizer CMProperties")
-root.geometry("750x350")
+root.geometry("250x100")
 
 app = Application(root)
 

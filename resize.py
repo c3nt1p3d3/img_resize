@@ -64,11 +64,9 @@ class Application(Frame):
 			image_file = fname_list[i]
 			# image_file = '/home/belf/Documents/IT/Programming/Python/somepic.jpg'
 
-			image_file = str(image_file)
+			image_file = image_file.lstrip('{')
 
-			image_file = image_file.lstrip('<')
-
-			image_file = image_file.rstrip('>')
+			image_file = image_file.rstrip('}')
 
 			i+=1
 		

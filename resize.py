@@ -33,8 +33,8 @@ class Application(Frame):
 		self.button.grid(row=3, column=1)
 
 		#close button
-		self.button = Button(self, text = "Close", command = self.close)
-		self.button.grid(row=3, column=3)
+		#self.button = Button(self, text = "Close", command = self.close)
+		#self.button.grid(row=3, column=3)
 
 
 
